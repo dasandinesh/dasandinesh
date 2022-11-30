@@ -1,0 +1,161 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<style>
+    th{
+        padding: 10px;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+input {
+  width: 100%;
+}
+</style>
+<body>
+    <br>
+    <div class="container card">
+        <div class="header">
+            <h2 >Add User</h2>
+        </div>
+        <div>
+            <form method="POST">
+                <div class="row">
+                    {% csrf_token %}
+                    <div class="col">
+                        <table>
+                            {% csrf_token %}
+                            <tr><th>customer_name</th><td><input type="text" name="customer_name"></td></tr>
+                            <tr><th>customer_dateofbirth</th><td><input type="date" name="customer_dateofbirth"></td></tr>
+                            <tr><th>sex:</th><td>male:<input type="radio" name="sex" value="male"></td><td>femal:<input type="radio" name="sex" value="female"></td></tr>
+                            <tr><th>Phome</th><td><input type="text" name="phone"></td></tr>
+                            <tr><th>community</th><td><input type="text" name="community"></td></tr>
+                            <tr><th>Doorno</th><td><input type="text" name="Doorno"></td></tr>
+                            <tr><th>street_name</th><td><input type="text" name="street_name"></td></tr>
+                            <tr><th>area_name</th><td><input type="text" name="area_name"></td></tr>
+                            <tr><th>finance amount</th><td><input type="text" name="finance_amount"></td></tr>
+                            <tr><th>paid amount</th><td><input type="text" name="paid_amount"></td></tr>
+                            <tr><th>pending_amount</th><td><input type="text" name="pending_amount"></td></tr>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <table>
+                            <tr><th>acnumber</th><td><input type="text" name="acnumber"></td></tr>
+                            <tr><th>ifsc</th><td><input type="text" name="ifsc"></td></tr>
+                            <tr><th>bankname</th><td><input type="text" name="bankname"></td></tr>
+                            <tr><th>brach</th><td><input type="text" name="brach"></td></tr>
+                            <tr><th>pannumber</th><td><input type="text" name="pannumber"></td></tr>
+                            <tr><th>occupations</th><td><input type="text" name="occupations"></td></tr>
+                            <tr><th>idproof</th><td><input type="file" name="idproof"></td></tr>
+                            <tr><th>photo</th><td><input type="file" name="photo"></td></tr>
+                            <tr><th></th></tr>
+                            <tr><th><button>ok</button></th></tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+    
+        </div>
+        <div class="listscrollbox">
+            <h2 class="header">List User</h2>
+            <table class="table">
+                    <tr class="table-success">
+                        <td>S.No</td>
+                        <td>customer</td>
+                        <td>phone</td>
+                        <td>views</td>
+                    </tr>
+                {% for data in obj %}
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.customer_name}}</td>
+                    <td>{{ data.customer_phone}}</td>
+                    <td><a href="/customer/{{data.id}}">Viws</a></td>
+                 </tr>
+                {% endfor %}
+            </table>
+        </div>
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <br>
+    <div class="container card">
+        <br>
+        <div>
+            <form method="POST">
+                <div class="header">
+                    <h2 >Add User</h2>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {% csrf_token %}
+                        <label for="customer_name">name:</label><input type="text" name="customer_name"><br>
+                        <label for="customer_dateofbirth">dateofbirth:</label><input type="date" name="customer_dateofbirth"><br>
+                        <label for="sex">sex:</label><label >male</label><input type="radio" name="sex" value="male"><label >female</label><input type="radio" name="sex" value="female"><br>
+                        <label>Phome</label><input type="text" name="phone"><br>
+                        <label>community </label><input type="text" name="community"><br>
+                        <label>Doorno</label><input type="text" name="Doorno"><br>
+                        <label>street_name</label><input type="text" name="street_name"><br>
+                        <label>area_name</label><input type="text" name="area_name"><br>
+                        <label>finance_amount</label><input type="text" name="finance_amount"><br>
+                        <label>paid_amount</label><input type="text" name="paid_amount"><br>
+                        <label>pending_amount</label><input type="text" name="pending_amount"><br>
+                        </div>
+                    <div class="col-6" >
+                    <label>acnumber</label><input type="text" name="acnumber"><br>
+                    <label>ifsc</label><input type="text" name="ifsc"><br>
+                    <label>bankname</label><input type="text" name="bankname"><br>
+                    <label>brach</label><input type="text" name="brach"><br>
+                    <label>pannumber</label><input type="text" name="pannumber"><br>
+                    <label>occupations</label><input type="text" name="occupations"><br>
+                    <label>idproof</label><input type="file" name="idproof"><br>
+                    <label>photo</label><input type="file" name="photo"><br>
+                    <button>ok</button>
+                    </div>
+              </form>
+            </div>   
+            <div class="listscrollbox">
+                <h2 class="header">List User</h2>
+                <table class="table">
+                        <tr class="table-success">
+                            <td>S.No</td>
+                            <td>customer</td>
+                            <td>phone</td>
+                            <td>views</td>
+                        </tr>
+                    {% for data in obj %}
+                     <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ data.customer_name}}</td>
+                        <td>{{ data.customer_phone}}</td>
+                        <td><a href="/customer/{{data.id}}">Viws</a></td>
+                     </tr>
+                    {% endfor %}
+                </table>
+            </div>
+         
+        </div> -->
+
+
+</body>
+</html>

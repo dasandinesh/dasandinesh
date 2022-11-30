@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <div class="container">
+        <div>
+            <table>
+                <tr><th>Today date:</th><td><h3>{{todaydate}}</h3></td></tr>
+                <tr><th>last update:</th><td><h3>{{update}}</h3></td></tr>
+            
+            
+        </table>
+        </div>
+        <div>
+            <h2 class="header">updates </h2>
+            <table class="table datas">
+                <thead>
+                    <tr class="table-success ">
+                        <td>S.No</td>
+                        <td>name</td>
+                        <td>days NO</td>
+                        <td>amount</td>
+                        <td>EMI</td>
+                        <td>pending</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in updates %}
+                <tbody>
+                {% csrf_token %}
+                <form action="">
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.weeklylan_customer_name}}</td>
+                    <td>{{ data.weeklylan_loan_name}}</td>
+                    <td>{{ data.weeklylan_amount}}</td>
+                    <td>{{ data.pending_flag}}</td>
+                    <td>{{ data.total_receipt_amount}}</td>
+                    <td><input type="text" value="{{ data.per_day_fine}}"></td>
+                 </tr>
+                </form>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div
+    </div>
+    
+</body>
+</html>

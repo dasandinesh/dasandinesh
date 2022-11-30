@@ -1,0 +1,121 @@
+{% load static %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    tr td{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.header {
+  padding: 15px;
+  text-align: center;
+  background: #5cb85c;
+  color: white;
+  font-size: 20px;
+}.datas{
+    width: 100%;
+}
+.scroll{
+    overflow: scroll;
+    height: 300px;
+    
+}
+.scroll2{
+    overflow: scroll;
+    height: 200px;
+    width: 50%;
+}
+</style>
+<body>
+    <br>
+    <div class="container card" style="border-style: solid;border-color: green; ">
+        <h2 style="text-align: center;" class="header">{{ loan.weeklylan_loan_name}}</h2>
+        <div class="row">
+            <div class="col-4 ">
+                <table class="datas">
+                    <!-- <tr><th>loan type:</th><td>{{loan.Loan}}</td></tr> -->
+                    <tr><th>loan type:</th><td>{{loan.weeklylan_EMItype}}</td></tr>
+                    <tr><th>loan start :date</th><td>{{loan.weeklylan_date_demant}}</td></tr>
+                    <tr><th>EMI amount:</th><td>{{loan.weeklylan_amount}}</td></tr>
+                </table>
+        </div>
+            <div class="col-4 ">
+                <table>
+                    <tr><th>finance amount:</th><td>{{customers.customer_finance_amount}}</td></tr>
+                    <tr><th>paid</th><td>{{loan.total_receipt_amount}}</td></tr>
+                    <tr><th>pending</th><td>{{customers.customer_pending_amount}}</td></tr>
+                </table></div>
+            <div class="col-4 ">
+                <table>
+                    <tr><th>finance amount:</th><td>{{customers.customer_finance_amount}}</td></tr>
+                    <tr><th>paid</th><td>{{loan.total_receipt_amount}}</td></tr>
+                    <tr><th>pending</th><td>{{customers.customer_pending_amount}}</td></tr>
+                </table></div>
+    </div>
+    <br>
+    <br>
+    <h3 class="header">receipt detals</h3>
+    <div class="scroll">
+        <table class="table">
+            <thead>
+                <tr class="table-success header">
+                    <td>S.No</td>
+                    <td>customer</td>
+                    <td>start date</td>
+                    <td>amount</td>
+                    <td>totalweek</td>
+                    <td>weeklyEMI</td>
+                </tr>
+            </thead>
+            {% for data in receiptsforloan %}
+            <tbody>
+             <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ data.receipt_date}}</td>
+                <td>{{ data.receipt_date}}</td>
+                <td>{{ data.receipt_amount}}</td>
+                <td>{{ data.receipt_discretion}}</td>
+                <td><a href="/userdet/{{data.id}}">viwes</a></td>
+             </tr>
+             
+            </tbody>
+            {% endfor %}
+            <tr><th><a href="/loaninfoprint/{{loan.id}}">print</a></th></tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    <h3 class="header">fine detals</h3>
+    <div class="scroll2">
+        <table class="table">
+            <thead>
+                <tr class="table-success header">
+                    <td>S.No</td>
+                    <td>customer</td>
+                    <td>start date</td>
+                    <td>amount</td>
+                </tr>
+            </thead>
+            {% for fines in fine %}
+            <tbody>
+             <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ fines.fine_customer}}</td>
+                <td>{{ fines.fine_date}}</td>
+                <td>{{ fines.fine_amount}}</td>
+             </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    </div></div>
+
+</body>
+</html> 

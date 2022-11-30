@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+@page {
+    size: 7in 9.25in;
+    margin: 27mm 16mm 27mm 16mm;
+}
+
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+table, td, th {
+  border: 1px solid black;
+}
+
+</style>
+<body>
+    <table>
+        <tr><th>S.NO</th><th>Name</th><th>emi type</th><th>start date</th><th>amount</th><th>pending term</th><th>paid</th></tr>
+        {% for data in alldemands %}
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.weeklydemand_loan_name}}</td>
+                    <td>{{ data.weeklylan_loan_name}}</td>
+                    <td>{{ data.weeklylan_date_demant}}</td>
+                    <td>{{ data.weeklylan_amount}}</td>
+                    <td>{{ data.pending_flag}}</td>
+                    <td>{{ data.total_receipt_amount}}</td>
+                 </tr>
+                {% endfor %}
+    </table>
+   <input id="printPageButton" type = "button" value = "Print" onclick = "window.print()" />
+</body>
+</html>

@@ -1,0 +1,10 @@
+i5 3gen process    2300
+motherboard za h81 3700
+ram 8b             2800 
+ssd 120gb          2300
+cpu fan             300
+capnet             1300
+
+--------------------------------
+		     00
+		

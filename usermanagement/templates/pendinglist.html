@@ -1,0 +1,47 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <br>
+    <div class="container card">
+        <div >
+            <h2 class="header"> pending List </h2>
+          
+            <table class="table">
+                <thead>
+                    <tr class="table-success">
+                        <td>S.No</td>
+                        <td>name</td>
+                        <td>phone</td>
+                        <td>amount</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in datas %}
+                <tbody>
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.customer_name}}</td>
+                    <td>{{ data.customer_phone}}</td>
+                    <td>{{ data.pending_flag}}</td>
+                    <td><a href="/userdet/{{data.id}}">Viws</a></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+</body>
+
+</html>

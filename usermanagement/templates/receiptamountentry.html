@@ -1,0 +1,171 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .scroll{
+    overflow: scroll;
+    height: 500px;
+    
+}
+</style>
+<body >
+    <br>
+    <div class="container card" >
+        <div class="row">
+            <div class="col">
+                <h2 class="header">search</h2>
+               
+                <label>phone</label><input type="text" name="receipterphonenumber"><input type="submit" value="submit" class="done">
+              
+                <table id="myTable">
+                    <tr><th></th><th></th><th></th></tr>
+                </table>
+            </div>
+            <div class="col">
+            <form method="POST" class="tablea">
+                <h2 class="header">receipt Entry</h2>
+                <br>
+                 {% csrf_token %}
+                 <table >
+                    <tr><th><label for="">loan Name:</label></th><td> <input type="text" name="loanname"><label >*auto fill</label></td></tr>
+                     <tr><th><label for="">Name:</label></th><td> <input type="text" name="customername" class="customername"></td></tr>
+                     <tr><th><label for="">date:</label></th><td><input type="date" name="from"></td></tr>
+                     <tr><th><label for="">full paid</label></th><td> <input type="checkbox" name="fullpaid"></td></tr>
+                     <tr><th><label for="">amount</label></th><td> <input type="text" name="amount" class="emiamount"></td></tr>
+                     <tr><th><label for="">discretion</label></th><td> <input type="text" name="discretion" class="discretion"></td></tr>
+                     <tr><th></th><td></td></tr>
+                </table>
+                 <button class="button">ok</button>
+              </form>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+        <div class="scroll col">
+            <h2 class="header">Receipt Bills</h2>
+            <table class="table">
+                <thead>
+                    <tr class="tableth">
+                        <td>customer</td>
+                        <td>Date</td>
+                        <td>amount</td>
+                        <td>print</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in obj %}
+                <tbody>
+                 <tr>
+                    <td>{{ data.customer_receipter_name}}</td>
+                    <td>{{ data.receipt_emi_date}}</td>
+                    <td>{{ data.receipt_amount}}</td>
+                    <td><a href="/receipt/{{data.id}}">print</a></td>
+                    <td><input type="submit" value="submit" class="done"></td>
+                    <td><input type="hidden" name="" id="reciptid" value="{{data.id}}" ></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col" id="name">
+            <h2 class="header">Viwe</h2>
+        </div>
+    </div>
+    </div>
+    
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>jQuery UI Autocomplete - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+      $(document).ready(function(){
+        $("input[name*=loanname]").autocomplete({
+    source: function (request, response) {
+       $.getJSON("loannameautofill?term=" + request.term, function (data) {
+             response($.map(data, function(item) {
+                return {
+                   value: item.weeklylan_loan_name,
+                   id: item.id,
+                   customername:item.weeklylan_customer_name,
+                   EMIamount:item.weeklylan_weeklyEMI,
+                   weeklylan_amount:item.weeklylan_amount,
+                   total_receipt_amount:item.total_receipt_amount,
+                   total_fine_amount:item.total_fine_amount,
+                   pending_flag:item.pending_flag,
+                };
+                console.log(item.id);
+             }));
+       });
+
+    },
+    select:function(event, ui){
+    $(".customername").val(ui.item.customername)
+    $(".emiamount").val(ui.item.EMIamount);
+    $(".discretion").val("None");
+    },
+    minLength: 0
+    });
+    $(".done").on("click", function() {
+        var reciptid=$(this).parent().parent().find('#reciptid').val();
+        $("#name").load("receiptviewspage/"+reciptid+"");
+    });
+
+
+
+    $("input[name*=receipterphonenumber]").autocomplete({
+    source: function (request, response) {
+       $.getJSON("customerphonenumbersearch?term=" + request.term, function (data) {
+             response($.map(data, function(item) {
+                return {
+                   value: item.loan_phone_no,
+                   id: item.id,
+                   customername: item.weeklylan_customer_name,
+                   EMIamount: item.weeklylan_weeklyEMI,
+                };
+                console.log(item.id);
+             }));
+            
+       });
+
+    },
+    select:function(event, ui){
+    $(".customername").val(ui.item.customername)
+    $(".emiamount").val(ui.item.EMIamount);
+    $(".discretion").val("None");
+
+    },
+    minLength: 0
+    });
+    $(".done").on("click", function() {
+        var reciptid=$(this).parent().parent().find('#reciptid').val();
+        $("#name").load("receiptviewspage/"+reciptid+"");
+    });
+     });
+
+    
+</script>
+<script type="text/javascript">
+    $.ajax({
+        url: 'customerphonenumbersearch',
+        dataType: 'json',
+        success: function(data) {
+            for (var i=0; i<data.length; i++) {
+                var row = $('<tr><td>' + data[i].zipcode+ '</td><td>' + data[i].city + '</td><td>' + data[i].county + '</td></tr>');
+                $('#myTable').append(row);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+    </script>

@@ -1,0 +1,125 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+</style>
+<body>
+    <div class=" card container" >
+        
+            <div class="row">
+                <div class="col" class="p-3 border bg-light">
+                    <table class="table" class="p-3 border bg-light">
+                        <tr><th><label>USER</label></th><td>{{request.user}}</td></tr>
+                        <tr><th><label>last udate</label></th><td>{{lastdate.last_update_date}}</td></tr>
+
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table">
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table">
+                    </table>
+                </div>
+            </div>
+        <br>
+
+        <div class="row">
+        <div class="col">
+        <h2 class="header">EMI Dayliy Collections  </h2>
+        <div class="scroll">
+        <table class="table">
+        <tr class="tableth">
+            <th>S.no</th><th>Name</th><th>amount</th>
+        </tr>
+            <tbody>
+                {% for data in datas %}
+             <tr>
+                <td>{{ data.weeklylan_loan_name}}</td>
+                <td>{{ data.weeklylan_customer_name}}</td>
+                <td>{{ data.weeklylan_weeklyEMI}}</td>
+             </tr>
+             {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    <a href="weeklydemandlistprint">print</a>
+    </div>
+    <div class="col">
+        <h3 class="header">Interst</h3>
+        <div class="scroll" style="padding:0%;">
+        <table class="table">
+        <tr class="tableth">
+            <th>S.no</th><th>Name</th><th>amount</th>
+        </tr>
+            <tbody>
+                {% for data in datas %}
+             <tr>
+                <td>{{ data.id}}</td>
+                <td>{{ data.weeklydemand_loan_name}}</td>
+                <td>{{ data.emi_amount}}</td>
+             </tr>
+             {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="weeklydemandlistprint">print</a>
+</div>
+
+</div>
+<br>
+<div class="row">
+    <div class="col">
+    <h1 class="header">penting list </h1>
+    <div class="scroll">
+    <table class="table">
+    <tr class="tableth">
+        <th>S.no</th><th>Name</th><th>phone</th><th>amount</th><th>viwes</th>
+    </tr>
+        <tbody>
+            {% for data in penting %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ data.customer_name}}</td>
+                <td>{{ data.customer_phone}}</td>
+                <td>{{ data.pending_flag}}</td>
+                <td><a href="/userdet/{{data.id}}">Viws</a></td>
+             </tr>
+         {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a href="alldemandlistprint">print</a>
+</div>
+<div class="col">
+    <h1 class="header">deament date </h1>
+    <div class="scroll">
+    <table class="table">
+    <tr class="tableth">
+        <th>S.no</th><th>Name</th><th>date</th><th>amount</th>
+    </tr>
+        <tbody>
+            {% for data in demand %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ data.weeklylan_loan_name}}</td>
+                <td>{{ data.weeklylan_date_demant}}</td>
+                <td>{{ data.weeklylan_weeklyEMI}}</td>
+             </tr>
+         {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a href="allpendinglistprint">print</a>
+</div>
+</body>
+</html>

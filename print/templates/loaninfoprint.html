@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+  
+}
+.col-4{
+    float: left;
+    width: 50%;
+}
+table{
+    width: 100%;
+    font-size: 20px;
+}
+
+.logo{
+    height: 25%;
+}
+.receipt{
+    padding-top: 200px;
+}
+th, td {
+                width:150px;
+                text-align:center;
+                /* border:1px solid black; */
+                padding:5px
+              
+            }
+th,td{
+    border:1px solid black;
+}
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+
+</style>
+<body>
+    <div>
+        <div class="logo">
+            <h2 style="text-align: center; padding: 20px;">ABIRAMI  BANKERS</h2>
+            <address style="padding: 10px;">
+                ABIRAMI  BANKERS.<br> 
+                16-N Thuthikulam Road<br>
+                Alangulam-627 851<br>
+                Tirunelveli Dist,<br>
+                Phone:9865234383
+                </address>
+        </div>
+        <hr>
+        <div class="row">
+            <h1>{{loan_info.weeklylan_loan_name}}</h1>
+            <div class="col-4 ">
+                
+                <table>
+                    <tr><th>loan type:</th><td>{{loan_info.weeklylan_EMItype}}</td></tr>
+                    <tr><th>loan start date</th><td>{{loan_info.weeklylan_date_demant}}</td></tr>
+                    <tr><th>EMI amount:</th><td>{{loan_info.weeklylan_amount}}</td></tr>
+                    <tr><th>EMI amount:</th><td>{{loan_info.weeklylan_amount}}</td></tr>
+                </table>
+        </div>
+            <div class="col-4 ">
+                <table>
+                    <tr><th>finance amount:</th><td>{{loan_info.weeklylan_amount}}</td></tr>
+                    <tr><th>paid</th><td>{{loan_info.total_receipt_amount}}</td></tr>
+                    <tr><th>pending</th><td>{{loan_info.weeklylan_amount}}-{{loan_info.total_receipt_amount}}</td></tr>
+                    <tr><th>pending</th><td>{{loan_info.weeklylan_amount}}-{{loan_info.total_receipt_amount}}</td></tr>
+                </table></div>  
+    </div>
+    <div class="receipt">
+        <hr>
+        <h2 style="text-align: center;">receipts</h2>
+        <table>
+            <tr  class="tableh"><th>S.NO</th><th>name</th><th>s.ID</th><th>DATE</th><th>amount</th><th>decript</th></tr>
+                {% for data in receipt_info %}
+                <tr style="text-align: center; padding-bottom: 500px;">
+                    <td>{{forloop.counter}}</td>
+                    <td>{{data.loan_name}}</td>
+                    <td>{{data.id}}</td>
+                    <td>{{data.receipt_emi_date}}</td>
+                    <td>{{data.receipt_amount}}</td>
+                    <td>{{data.receipt_discretion}}</td>
+                </tr>
+                {% endfor %}
+           
+        </table>
+
+    </div>
+    
+    </div>
+    <div class="bottam">
+        <input id="printPageButton" type = "button" value = "Print" onclick = "window.print()" />
+
+      </div>
+</body>
+</html>

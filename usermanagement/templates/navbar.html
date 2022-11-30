@@ -1,0 +1,183 @@
+{% load static %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+<!-- <script src="{% static 'popper/popper.min.js' %}"></script>
+<script src="{% static '/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">    -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.tableth{
+  background-color: #c3e6cb;
+}
+ 
+.header {
+  padding: 12px;
+  text-align: center;
+  background: #218838;
+  color: white;
+  font-size: 20px;
+}
+.datas{
+    width: 100%;
+}
+.scroll{
+    /* border: 3px solid #218838; */
+    overflow: scroll;
+    height: 400px; 
+}
+.scroll2{
+  /* border: 3px solid #218838 ; */
+    overflow: scroll;
+    height: 200px;
+    width: 50%;
+}   
+.listscrollbox{
+    /* border: 3px solid #218838; */
+    overflow: scroll;
+    height: 600px;
+}
+.navbar {
+    background-color:#218838;
+}
+.container{
+  background-color: #FFFFFF;
+}
+body{
+  background-color: #282A35;
+}
+
+
+
+</style>
+<body>
+ 
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/receiptamountpage">receipt entry</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                loan form
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/weeklyloanlist">weeklyloanlist </a>
+                <a class="dropdown-item" href="/monthlyintlist">Interst </a>
+                <a class="dropdown-item" href="/monthlyloancreatepage">Amortization Loan</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                options
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/customerformpage">customer create </a>
+                <a class="dropdown-item" href="/EMItypeformpage">EMI type </a>
+                <a class="dropdown-item" href="/sourcetypepage">EMI source</a>
+                <a class="dropdown-item" href="/receiptamountpage">receipt entry </a>
+                <a class="dropdown-item" href="/demanddates">demand dates</a>
+
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Notification
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/officenotifigation">office notifigations </a>
+                <a class="dropdown-item" href="/customernotification">cutomer notifigation </a>
+                <a class="dropdown-item" href="/sourcetypepage">EMI source</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                receipt atjusment
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/creditadjustmentreceiptpage">receipt credit  </a>
+                <a class="dropdown-item" href="/deiptadjustmentreceiptpage">receipt debit </a>
+                <a class="dropdown-item" href="/fineadjustmentpage">add fine</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter Opt
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/receiptfilter">Receipt Filter </a>
+                <a class="dropdown-item" href="/loanfilter">loan filter </a>
+                <a class="dropdown-item" href="/pendinglist">pending list</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/account">Account </a>
+                <a class="dropdown-item" href="/EMItypeformpage">EMI type </a>
+                <a class="dropdown-item" href="/sourcetypepage">EMI source</a>
+                <a class="dropdown-item" href="/receiptamountpage">receipt entry </a>
+                <a class="dropdown-item" href="/demanddates">demand dates</a>
+
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                update
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/loanamozrtiondemo">loanamozrtiondemo</a>
+                <a class="dropdown-item" href="/update">update</a>
+                <a class="dropdown-item" href="/updatedays">update days</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/register">User create </a>
+                <a class="dropdown-item" href="/EMItypeformpage">User list </a>
+                <a class="dropdown-item" href="/sourcetypepage">EMI source</a>
+                <a class="dropdown-item" href="/receiptamountpage">receipt entry </a>
+                <a class="dropdown-item" href="/demanddates">demand dates</a>
+
+            </li>
+          </ul>
+          
+          <!-- <form class="form-inline my-2 my-lg-0">
+              
+            <a href="/" style="color: white;">{{request.user}}</a>
+            <button ><a href="/logedout" style="color: white;"></a>logout</button>
+            
+          </form> -->
+      
+          
+        </div>
+
+        <div>
+          <p>{{request.user}}</p>
+        </div>
+        <div>
+          
+          <a href="/logedout" class="btn btn-light btn-lg active" role="button">logout</a>
+          
+        </div>
+      </nav>
+
+</body>
+</html>

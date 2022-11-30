@@ -1,0 +1,88 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container card">
+        <div>
+            <form method="POST">
+                <h2>Weekly form</h2>
+                <br>
+                 {% csrf_token %}
+                 <table>
+                    {{ form.as_table }}
+                </table>
+                 <button>ok</button>
+              </form>
+        </div>
+        <div>
+            <h2>List User</h2>
+            <br>
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <td>S.No</td>
+                        <td>Type name</td>
+                        <td>days NO</td>
+                        <td>amount</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in obj %}
+                <tbody>
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.monthlylan_loan_name}}</td>
+                    <td>{{ data.monthlylan_customer_name}}</td>
+                    <td>{{ data.monthlylan_amount}}</td>
+                    <td><a href="/userdet/{{data.id}}">Viws</a></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>jQuery UI Autocomplete - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function(){
+      $("input[name*=monthlylan_customer_name]").autocomplete({
+  source: function (request, response) {
+     $.getJSON("customernameautofill?term=" + request.term, function (data) {
+           response($.map(data, function(item) {
+              return {
+                 value: item.customer_name,
+                 id: item.id,
+                 customername:item.weeklylan_customer_name,
+                 EMIamount:item.weeklylan_weeklyEMI,
+                 weeklylan_amount:item.weeklylan_amount,
+                 total_receipt_amount:item.total_receipt_amount,
+                 total_fine_amount:item.total_fine_amount,
+                 pending_flag:item.pending_flag,
+              };
+              console.log(item.id);
+           }));
+     });
+
+  },
+  select:function(event, ui){
+  $(".customername").val(ui.item.customername)
+  $(".emiamount").val(ui.item.EMIamount);
+  $(".discretion").val("None");
+  },
+  minLength: 0
+  });
+});
+</script>

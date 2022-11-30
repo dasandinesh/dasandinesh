@@ -1,0 +1,59 @@
+{% load static %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <div class="container card">
+        <div>
+            <a href="weeklyloancreatepage" class="btn btn-success  btn-lg active" role="button">Add Loan</a>
+            <a href="demanddates" class="btn btn-success  btn-lg active" role="button">Update</a>
+
+        </div>
+        <br>
+        <div>
+            <input type="text" name="" placeholder="search by name">
+            <input type="text" name="" placeholder="search by loan name">
+            <input type="text" name="" placeholder="search by loan amount">
+            <input type="text" name="" placeholder="search by pending teram">
+            <input type="button" value="Filter">
+        </div>
+        <br>
+    <div class="listscrollbox">
+        <h2 class="header">Weekly Loan List </h2>
+        <table class="table datas">
+            <thead>
+                <tr class="table-success">
+                    <td>S.No</td>
+                    <td>name</td>
+                    <td>days NO</td>
+                    <td>amount</td>
+                    <td>EMI</td>
+                    <td>pending</td>
+                    <td>views</td>
+                </tr>
+            </thead>
+            {% for data in obj %}
+            <tbody>
+             <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ data.weeklylan_customer_name}}</td>
+                <td>{{ data.weeklylan_loan_name}}</td>
+                <td>{{ data.weeklylan_amount}}</td>
+                <td>{{ data.pending_flag}}</td>
+                <td>{{ data.total_receipt_amount}}</td>
+                <td><a href="/loaninformation/{{data.weeklylan_loan_name}}">Viws</a></td>
+             </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>

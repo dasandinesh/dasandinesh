@@ -1,0 +1,54 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <div class="container card">
+        <div>
+            <form method="POST">
+                <h2 class="header">EMI Types</h2>
+                <br>
+                 {% csrf_token %}
+                 <table>
+                 {{form.as_table}}
+                </table>
+                 <button>ok</button>
+              </form>
+        </div>
+        <div class="listscrollbox">
+            <h2 class="header">List User</h2>
+            <br>
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <td>S.No</td>
+                        <td>Type name</td>
+                        <td>days NO</td>
+                        <td>amount</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in obj %}
+                <tbody>
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.EMItype_name}}</td>
+                    <td>{{ data.EMI_daylength}}</td>
+                    <td>{{ data.EMi_amount}}</td>
+                    <td><a href="/userdet/{{data.id}}">Viws</a></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

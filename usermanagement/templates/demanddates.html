@@ -1,0 +1,127 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+
+<body>
+    <br>
+    <div class="container card">
+        <div class="row">
+        <div class="col">
+            <h2 class="header">pending  List </h2>
+            <br>
+            <table class="table ">
+                    <tr class="table-success">
+                        <td>S.No</td>
+                        <td>customer</td>
+                        <td>date</td>
+                        <td>amount</td>
+                        <td>vlicks</td>
+                    </tr>
+                {% for data in datas %}
+                <tbody>
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.weeklydemand_loan_name}}</td>
+                    <td>{{ data.emi_demand_date}}</td>
+                    <td>{{ data.emi_amount}}</td>
+                    <td><button class="dasan">select</button></td>
+                    <td><input type="hidden" class="dummy" value={{data.id}}></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>    
+        </div>
+        <div class="col">
+            <h2 class="header">updates</h2>
+            <table class="datas">
+                <form class="form" method="POST">
+                {% csrf_token %}
+                <tr><th>loan ID</th><td><input type="text" readonly class="id"></td></tr>
+                <tr><th>Loan name</th><td><input type="text" class="loanname"></td></tr>
+                <tr><th>Customer name</th><td><input type="text" class="Customername"></td></tr>
+                <tr><th>Demant date</th><td><input type="date" class="demantdate"></td></tr>
+                <tr><th>tolal amount</th><td><input type="text" class="totalamount"></td></tr>
+                <tr><th>total week</th><td><input type="text" class="totalweek"></td></tr>
+                <tr><th>EMI amount</th><td><input type="text" class="emiamount"></td></tr>
+                <tr><th>day Fine</th><td><input type="text" class="dayfine"></td></tr>
+                <tr><th>pending</th><td><input type="text" class="pending"></td></tr>
+                <tr><th>total paid amount</th><td><input type="text" class="paidamount"></td></tr>
+                <tr><th>fine amount</th><td><input type="text" class="fine"></td></tr>
+                <input  type="submit" name="submit" value="submit">
+             </form>
+                
+            </table>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    
+    $(".dasan").click(function(){
+        var dummydata = $(this).parent().parent().find('.dummy').val();
+                $.getJSON( '/loanupdate?data=' + dummydata, function(data) {         
+                            $(data).each(function(i,hero){
+                                $(".id").val(hero.id)
+                                $(".loanname").val(hero.weeklylan_loan_name)
+                                $(".Customername").val(hero.weeklylan_customer_name)
+                                 $(".demantdate").val(hero.weeklylan_date_demant)
+                                 $(".totalamount").val(hero.weeklylan_amount)
+                                 $(".totalweek").val(hero.weeklylan_totalweek)
+                                 $(".emiamount").val(hero.weeklylan_weeklyEMI)
+                                 $(".dayfine").val(hero.per_day_fine)
+                                 $(".pending").val(hero.pending_flag)
+                                 $(".paidamount").val(hero.total_receipt_amount)
+                                 $(".fine").val(hero.total_fine_amount)
+                            })
+               },'html').done(function(){
+                   console.log("ok")
+               })
+    })
+    $('.form').on('submit', function(e){
+             e.preventDefault();
+               $.ajax({
+                    type : "POST", 
+                    url: 'qunitypriceupdate',
+                    data: {
+                        id:$(".id").val(),
+                        loanname: $(".loanname").val(),
+                        Customername: $(".Customername").val(),
+                        demantdate: $(".demantdate").val(),
+                        totalamount:$(".totalamount").val(),
+                        totalweek:$(".totalweek").val(),
+                        emiamount:$(".emiamount").val(),
+                        dayfine:$(".dayfine").val(),
+                        pending:$(".pending").val(),
+                        paidamount:$(".paidamount").val(),
+                        fine:$(".fine").val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        dataType: "json",
+                    },success:function(){
+                        $(".id").val(''),
+                        $(".loanname").val(''),
+                        $(".Customername").val(''),
+                        $(".demantdate").val(''),
+                        $(".totalamount").val(''),
+                        $(".totalweek").val(''),
+                        $(".emiamount").val(''),
+                        $(".dayfine").val(''),
+                        $(".pending").val(''),
+                        $(".paidamount").val(''),
+                        $(".fine").val('')
+                        alert("ok");
+                    }
+                });         
+                     });   
+</script>

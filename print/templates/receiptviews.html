@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* @page {
+    size: A5;
+    
+    margin: 0;
+} */
+
+html {
+    /* off-white, so body edge is visible in browser */
+    background: #eee;
+}
+
+/* body {
+    /* A5 dimensions */
+    /* height: 210mm;
+    width: 148.5mm;
+
+    margin: 0;
+} 
+
+/* fill half the height with each face */
+.face {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+/* the back face */
+.face-back {
+    height: 35%;
+    background: #f6f6f6;
+}
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+
+/* the front face */
+
+/* an image that fills the whole of the front face */
+
+</style>
+<body style="height:400px;">
+    <div class="face-back" >
+        <h2 style="text-align: center;">ABIRAMI  BANKERS</h2>
+        <address>
+            ABIRAMI  BANKERS.<br> 
+            16-N Thuthikulam Road<br>
+            Alangulam-627 851<br>
+            Tirunelveli Dist,<br>
+            Phone:9865234383
+            </address>
+
+    </div>
+    <div class="face face-back" style="height: 15%;">
+        <table style="width: 100%;">
+            <tr><th>Name:</th><td>{{loan_info.weeklylan_customer_name}}</td><th>EMI type</th><td> {{loan_info.weeklylan_EMItype}}</td></tr>
+            <tr><th>start date:</th><td> {{loan_info.weeklylan_date}}</td><th>EMI total </th><td> {{loan_info.weeklylan_weeklyEMI}}</td></tr>
+            <tr><th>Name:</th><td> {{loan_info.total_receipt_amount}}</td><th>EMI type</th><td> {{loan_info.weeklylan_weeklyEMI}}</td></tr>
+        </table>
+    </div>
+    <div style="height: 30%;">
+      <table style="width: 100%;">
+          <tr><th>loan Name</th><th>date</th><th>amount</th></tr>
+          <br>
+          <tr style="text-align: center;"><td>{{receipt_info.loan_name}}</td><td>{{receipt_info.receipt_emi_date}}</td><td>{{receipt_info.receipt_amount}}</td></tr>
+      </table>
+    </div>
+    <div style="height: 20%;">
+     <input id="printPageButton" type = "button" value = "Print" onclick = "window.print()" />
+    </div>
+    
+</body>
+</html>
+
+<!-- {{loan_info}}receipt_infocustomer_info -->

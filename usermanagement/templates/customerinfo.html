@@ -1,0 +1,65 @@
+{% load static %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container card">
+        <hr>
+        <h2 style="text-align: center;">{{ customerinfos.customer_name}}</h2>
+        <hr>
+        <div class="row">
+            <div class="col-5 ">
+            <h3>adress:</h3>
+            <p>{{customerinfos.customer_phone}}</p>
+            <p>{{customerinfos.customer_Doorno}},</p>
+            <p>{{customerinfos.customer_street_name}},</p>
+            <p>{{customerinfos.customer_area_name}}.</p>
+        </div>
+            <div class="col-7 ">
+            <p>start:{{customerinfos.customer_createdate}}</p>
+            <p>Type:{{customerinfos.customer_timepried}},</p>
+            <p>sourcetypes:{{customerinfos.sourcetypes}},</p>
+            <p>finance amount:{{customerinfos.customer_finance_amount}}.</p>
+            <p>paid:{{customerinfos.customer_paid_amount}}.</p>
+            <p>pending:{{customerinfos.customer_pending_amount}}.</p></div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="table-success">
+                    <td>S.No</td>
+                    <td>customer</td>
+                    <td>lone type</td>
+                    <td>start date</td>
+                    <td>amount</td>
+                    <td>totalweek</td>
+                    <td>weeklyEMI</td>
+                    <td>viwes</td>
+                </tr>
+            </thead>
+            {% for data in list %}
+            <tbody>
+             <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ data.weeklylan_customer_name}}</td>
+                <td>{{ data.weeklylan_EMItype}}</td>
+                <td>{{ data.weeklylan_date_demant}}</td>
+                <td>{{ data.weeklylan_amount}}</td>
+                <td>{{ data.weeklylan_totalweek}}</td>
+                <td>{{ data.weeklylan_weeklyEMI}}</td>
+                <td><a href="/loaninformation/{{data.weeklylan_loan_name}}">viwes</a></td>
+             </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+
+</body>
+</html> 

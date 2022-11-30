@@ -1,0 +1,159 @@
+{% load static %}
+{% include 'navbar.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <div class="container card">
+        <br>
+        <div >
+            <form method="POST">
+                <h2 class="header">EMI Loan Form</h2>
+                <br>
+                 {% csrf_token %}
+                 <div class="row">
+                <div class="col">
+                <table>
+                <tr><th><label>loan name</label></th><td><input type="text" name="loanname"></td></tr>
+                <tr><th><label>customer name</label></th><td> <select name="name">
+                    {% for customer in customerdt %}
+                    <option value="{{customer.customer_name}}">{{customer.customer_name}}</option>
+                    {% endfor %}
+                </select></td></tr>
+                <tr><th><label> EMItype</label></th><td>
+                    <select name="EMItype">
+                    {% for EMItype in EMItypes %}
+                    <option value="{{EMItype.EMItype_name}}">{{EMItype.EMItype_name}}</option>
+                    {% endfor %}
+                </select>
+                </td></tr>
+                <tr><th><label>sourcetype</label></th><td><select name="sourcetype">
+                    {% for sourcetype in sourcetypes %}
+                    <option value="{{sourcetype.sourcetype_name}}">{{sourcetype.sourcetype_name}}</option>{% endfor %}</select></td></tr>
+                <tr><th><label>date start</label></th><td><input type="date" name="firstemidate"></td></tr>
+                <tr><th><label>amount</label></th><td><input type="text" name="amount" id="amount"></td></tr>
+                <tr><th><label>totalweek</label></th><td><input type="text" name="totalweek" id="totalweek"></td></tr>
+                <tr><th><label>weeklyEMI:</label></th><td><input type="text" name="weeklyEMI" id="weeklyEMI"></td></tr>
+                <tr><th><label for="perday fine">perday fine</label></th><td><input type="text" name="per_day_fine"></td></tr>
+            </table>
+        </div>  
+        <div class="col">
+            <table>
+            <tr><th><label>Loan Type</label></th><td><select name="loantype" id="cars">
+                <option value="homeloan">Home Loan</option>
+                <option value="autofinace">Auto Loan</option>
+              </select></td></tr>
+            <tr><th><label>bike nos</label></th><td><input type="text" name="autofinace"><label>*if auto finance</label></td></tr>
+            <tr><th><label>Home loan ifo</label></th><td><input type="text" name="homefinace" id="amount"><label>*if home lone</label></td></tr>
+            <tr><th><label>prof</label></th><td><input type="file" name="prof"></td></tr>
+            <tr><th><label>phone</label></th><td><input type="text" name="loanphone"></td></tr>
+        </table>
+    </div>          
+        </div>
+                 <button>ok</button>
+              </form>
+        </div>
+
+
+
+        <div class="listscrollbox">
+            <h2 class="header">Weekly Loan List </h2>
+            <table class="table datas">
+                <thead>
+                    <tr class="table-success">
+                        <td>S.No</td>
+                        <td>name</td>
+                        <td>days NO</td>
+                        <td>amount</td>
+                        <td>EMI</td>
+                        <td>pending</td>
+                        <td>views</td>
+                    </tr>
+                </thead>
+                {% for data in obj %}
+                <tbody>
+                 <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.weeklylan_customer_name}}</td>
+                    <td>{{ data.weeklylan_loan_name}}</td>
+                    <td>{{ data.weeklylan_amount}}</td>
+                    <td>{{ data.pending_flag}}</td>
+                    <td>{{ data.total_receipt_amount}}</td>
+                    <td><a href="/loaninformation/{{data.weeklylan_loan_name}}">Viws</a></td>
+                 </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#totalweek").keyup(function(){
+        $("#weeklyEMI").val($("#amount").val()/$(this).val())
+});
+    })
+</script>
+<script>
+    var handler = function() {
+	var rnd = function(n) {
+  	return Math.round(n * 100) / 100; // round to 2 digits
+  };
+	//console.log("The button was clicked.");
+  //var principal = document.getElementById('principal').value;
+  var principal = Number(document.getElementById('principal').value);
+  var interest = Number(document.getElementById('interest').value);
+  var months = Number(document.getElementById('months').value);
+  //console.log('principal = ', principal);
+  //console.log('interest = ', interest);
+  //console.log('months = ', months);
+  var i = interest / 100.0 / 12;
+  var payment = rnd(principal * (i + i / (Math.pow(1+i, months) -1 )));
+  console.log('payment = ', payment);
+  
+  var tabledata = '';
+  var m;
+  var balance = principal;
+  var totalinterest = 0;
+  for (m = 1; m < months; m++) {
+  	var tointerest = rnd(balance * i);
+		// rounding errors accumulate when using floating point numbers
+    // 
+		totalinterest = rnd(totalinterest + tointerest);    
+    var toprincipal = rnd(payment - tointerest);
+    balance = rnd(balance - toprincipal);
+    
+    var row = '<tr>';
+    row += '<td>' + m + '</td>';
+    row += '<td>$' + toprincipal.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g,"$1,") + '</td>';    
+    row += '<td>' + tointerest.toFixed(2) + '%</td>';    
+    row += '<td>$' + balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g,"$1,") + '</td>';    
+    row += '</tr>';
+    
+    tabledata += row;
+    document.getElementById('tbl_result').className = 'show';
+  }
+	// grab the data or send the html data to the #tbl_body
+	document.getElementById('tbl_body').innerHTML = tabledata;
+  console.log("Total interest is", totalinterest);
+  
+  
+  return false; // suppress default function
+}
+document.getElementById('btn_calculate').onclick = handler;
+
+var default_values = function() {
+	document.getElementById('principal').value = '21000';
+	document.getElementById('interest').value = '0.9';  
+	document.getElementById('months').value = '60';  
+}
+document.getElementById('btn_default').onclick = default_values;
+</script>
+</html>
